@@ -35,7 +35,6 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
-console.log(firebaseConfig);
 const app = initializeApp(firebaseConfig);
 
 const email = "user20@mail.com";
@@ -95,9 +94,9 @@ const FILTER_OPTIONS = {
 };
 
 enableLogging(true);
-const auth = getAuth(app);
+const auth = getAuth();
 console.log(auth);
-const db = getDatabase(app);
+const db = getDatabase();
 
 export const Test = () => {
   const [user, setUser] = useState(null);
@@ -193,7 +192,6 @@ export const Test = () => {
         photoURL: "https://example.com/jane-q-user/profile.jpg",
       });
 
-      console.log(userCredential);
       console.log(updateInfo);
       setUser(userCredential.user);
     } catch (error) {
