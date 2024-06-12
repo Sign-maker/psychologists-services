@@ -37,6 +37,7 @@ const firebaseConfig = {
 
 console.log(firebaseConfig);
 const app = initializeApp(firebaseConfig);
+console.log(app);
 
 const email = "user20@mail.com";
 const password = "PASSWORD";
