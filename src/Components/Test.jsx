@@ -13,43 +13,40 @@ import {
   getDatabase,
   ref,
   enableLogging,
-  onValue,
   orderByChild,
   query,
   limitToLast,
   limitToFirst,
   startAt,
   endAt,
-  orderByKey,
-  startAfter,
-  set,
+  endBefore,
 } from "firebase/database";
 
-import { useCallback, useEffect, useState } from "react";
-
-enableLogging(true);
+import { useEffect, useState } from "react";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD29uimi4yI9pDx8ZGwVCht08yf2frTh_4",
-  authDomain: "learnlingo-260b6.firebaseapp.com",
-  databaseURL:
-    "https://learnlingo-260b6-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "learnlingo-260b6",
-  storageBucket: "learnlingo-260b6.appspot.com",
-  messagingSenderId: "81940700618",
-  appId: "1:81940700618:web:4d47c31051b7cc412a8333",
-  measurementId: "G-XJ0KD85DGX",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BACKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 
 const email = "user20@mail.com";
 const password = "PASSWORD";
+
+const DB_PSYCHOLOGISTS_PATH = "psychologists";
 const LIMIT = 4;
 const SORT_ORDER = {
   asc: "asc",
   desc: "desc",
 };
+const PRICE_TO_FILTER = 170;
 
 const FILTER_OPTIONS = {
   nameAsc: {
@@ -64,19 +61,22 @@ const FILTER_OPTIONS = {
     value: "Z to A",
     sortOrder: SORT_ORDER.desc,
   },
-  priceGreater10: {
+  priceGreater: {
     key: "price_per_hour",
     queryConstraint: [orderByChild("price_per_hour"), limitToFirst(LIMIT + 1)],
-    aditionalQueryConstraint: [startAfter(30)],
-    value: "Greater than 10$",
+    additionalQueryConstraint: [startAt(PRICE_TO_FILTER)],
+    value: `Greater than ${PRICE_TO_FILTER}$`,
     sortOrder: SORT_ORDER.asc,
   },
-  priceLess10: {
+  priceLess: {
     key: "price_per_hour",
-    queryConstraint: [orderByChild("price_per_hour"), limitToLast(LIMIT + 1)],
-    aditionalQueryConstraint: [endAt(30)],
-    value: "Less than 10$",
-    sortOrder: SORT_ORDER.desc,
+    queryConstraint: [
+      orderByChild("price_per_hour"),
+      limitToFirst(LIMIT + 1),
+      endBefore(PRICE_TO_FILTER),
+    ],
+    value: `Less than ${PRICE_TO_FILTER}$`,
+    sortOrder: SORT_ORDER.asc,
   },
   popularAsc: {
     key: "rating",
@@ -93,19 +93,14 @@ const FILTER_OPTIONS = {
   showAll: { value: "Show all" },
 };
 
+enableLogging(true);
 const auth = getAuth(app);
 const db = getDatabase(app);
-
-// const starCountRef = ref(db, "teachers");
-// onValue(starCountRef, (snapshot) => {
-//   const data = snapshot.val();
-//   console.log(data);
-// });
 
 export const Test = () => {
   const [user, setUser] = useState(null);
 
-  const [items, setItems] = useState([]);
+  const [, setItems] = useState([]);
 
   const [nextKey, setNextKey] = useState(null);
   const [nextValue, setNextValue] = useState(null);
@@ -124,7 +119,7 @@ export const Test = () => {
       selectedFilter.sortOrder === SORT_ORDER.asc
         ? [startAt(nextValue, nextKey)]
         : [endAt(nextValue, nextKey)];
-    console.log(constraintParams);
+
     setQueryConstraint([
       ...selectedFilter.queryConstraint,
       ...constraintParams,
@@ -132,10 +127,10 @@ export const Test = () => {
   }, [nextKey, nextValue, selectedFilter]);
 
   useEffect(() => {
-    const queryConstraint = selectedFilter.aditionalQueryConstraint
+    const queryConstraint = selectedFilter.additionalQueryConstraint
       ? [
           ...selectedFilter.queryConstraint,
-          ...selectedFilter.aditionalQueryConstraint,
+          ...selectedFilter.additionalQueryConstraint,
         ]
       : [...selectedFilter.queryConstraint];
 
@@ -148,7 +143,10 @@ export const Test = () => {
       const tempItems = [];
 
       try {
-        const topUserPostsRef = query(ref(db, "teachers"), ...queryConstraint);
+        const topUserPostsRef = query(
+          ref(db, DB_PSYCHOLOGISTS_PATH),
+          ...queryConstraint
+        );
         const snapShot = await get(topUserPostsRef);
 
         snapShot.forEach((teacher) => {
@@ -197,8 +195,6 @@ export const Test = () => {
       console.log(updateInfo);
       setUser(userCredential.user);
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
       console.log(error.code);
     }
   };
@@ -231,9 +227,11 @@ export const Test = () => {
 
   const handleGetData = async () => {
     try {
-      const data = await get(child(ref(db), "teachers"));
+      const data = await get(child(ref(db), DB_PSYCHOLOGISTS_PATH));
       console.log(data.val());
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLoadMore = () => {
