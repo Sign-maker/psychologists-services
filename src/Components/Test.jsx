@@ -94,9 +94,9 @@ const FILTER_OPTIONS = {
 };
 
 enableLogging(true);
-const auth = getAuth();
+const auth = getAuth(app);
 console.log(auth);
-const db = getDatabase();
+const db = getDatabase(app);
 
 export const Test = () => {
   const [user, setUser] = useState(null);
@@ -150,8 +150,8 @@ export const Test = () => {
         );
         const snapShot = await get(topUserPostsRef);
 
-        snapShot.forEach((teacher) => {
-          tempItems.push({ key: teacher.key, ...teacher.val() });
+        snapShot.forEach((item) => {
+          tempItems.push({ key: item.key, ...item.val() });
         });
 
         if (selectedFilter.sortOrder === SORT_ORDER.desc) {
