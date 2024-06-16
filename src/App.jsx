@@ -4,15 +4,23 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { Layout } from "./Components/Layout/Layout";
 import { PrivateRoute } from "./Components/PrivateRoute/PrivateRoute";
+import { useAuth } from "./hooks/useAuth";
+import { Loader } from "./Components/Loader/Loader";
 
 const Home = lazy(() => import("./pages/Home/Home"));
 const Psychologists = lazy(() => import("./pages/Psychologists/Psychologists"));
 const Favorites = lazy(() => import("./pages/Favorite/Favorites"));
 
 function App() {
+  const { isRefreshing, getCurrent } = useAuth();
+
+  useEffect(() => {
+    getCurrent();
+  }, [getCurrent]);
+
   const routes = [
     {
       path: "/",
@@ -32,9 +40,10 @@ function App() {
   const routerOptions = {
     basename: "/psychologists-services/",
   };
+
   const router = createBrowserRouter(routes, routerOptions);
 
-  return <RouterProvider router={router} />;
+  return !isRefreshing ? <RouterProvider router={router} /> : <Loader />;
 }
 
 export default App;

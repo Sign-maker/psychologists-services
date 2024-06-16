@@ -1,11 +1,4 @@
-import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
+import { app } from "../constants/firebase";
 
 import {
   child,
@@ -23,21 +16,9 @@ import {
 } from "firebase/database";
 
 import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_DATABASE_URL,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BACKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
-};
-
-const app = initializeApp(firebaseConfig);
-
-const email = "user20@mail.com";
+const email = "user30@mail.com";
 const password = "PASSWORD";
 
 const DB_PSYCHOLOGISTS_PATH = "psychologists";
@@ -94,12 +75,12 @@ const FILTER_OPTIONS = {
 };
 
 enableLogging(true);
-const auth = getAuth(app);
-console.log(auth);
+// const auth = getAuth(app);
 const db = getDatabase(app);
 
 export const Test = () => {
-  const [user, setUser] = useState(null);
+  const { user, signUp, signIn, signOutUser, getCurrent } = useAuth();
+  // const [user, setUser] = useState(null);
 
   const [, setItems] = useState([]);
 
@@ -180,49 +161,61 @@ export const Test = () => {
   }, [queryConstraint, selectedFilter, shouldGetItems]);
 
   const handleSignUp = async () => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+    //   try {
+    //     const userCredential = await createUserWithEmailAndPassword(
+    //       auth,
+    //       email,
+    //       password
+    //     );
 
-      const updateInfo = await updateProfile(auth.currentUser, {
-        displayName: "Jane Q. User",
-        photoURL: "https://example.com/jane-q-user/profile.jpg",
-      });
+    //      await updateProfile(auth.currentUser, {
+    //       displayName: "Jane Q. User",
+    //       photoURL: "https://example.com/jane-q-user/profile.jpg",
+    //     });
 
-      console.log(updateInfo);
-      setUser(userCredential.user);
-    } catch (error) {
-      console.log(error.code);
-    }
+    //     // console.log(userCredential.user.toJSON(), updateInfo);
+    //     // setUser(userCredential.user);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    signUp({ email, password, name: "vasia" });
+    // try {
+    //   signUp({ email, password, name: "vasia" });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleSignIn = async () => {
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCredential.user);
-      // console.log(auth);
-      setUser(userCredential.user);
-    } catch (error) {
-      console.log(error.code);
-    }
+    // try {
+    //   const userCredential = await signInWithEmailAndPassword(
+    //     auth,
+    //     email,
+    //     password
+    //   );
+    //   console.log(userCredential.user);
+    //   // console.log(auth);
+    //   setUser(userCredential.user);
+    // } catch (error) {
+    //   console.log(error.code);
+    // }
+    signIn({ email, password });
   };
 
   const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      setUser(null);
-      // console.log(auth);
-      // setUser(userCredential.user);
-    } catch (error) {
-      console.log(error.code);
-    }
+    // try {
+    //   await signOut(auth);
+    //   setUser(null);
+    //   // console.log(auth);
+    //   // setUser(userCredential.user);
+    // } catch (error) {
+    //   console.log(error.code);
+    // }
+    signOutUser();
+  };
+
+  const handleGetCurrent = async () => {
+    getCurrent();
   };
 
   const handleGetData = async () => {
@@ -253,6 +246,7 @@ export const Test = () => {
         <button onClick={handleSignUp}>SignUp</button>
         <button onClick={handleSignIn}>SignIn</button>
         <button onClick={handleSignOut}>SignOut</button>
+        <button onClick={handleGetCurrent}>GetCurrent</button>
       </div>
       <div>
         DB
