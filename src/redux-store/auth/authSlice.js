@@ -4,7 +4,7 @@ import { getCurrent, signIn, signOutUser, signUp } from "./authOperations";
 const initialState = {
   user: null,
   isLoggedIn: false,
-  isRefreshing: false,
+  isRefreshing: true,
   isUserLoading: false,
   error: null,
 };

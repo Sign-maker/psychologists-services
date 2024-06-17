@@ -14,32 +14,32 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const Psychologists = lazy(() => import("./pages/Psychologists/Psychologists"));
 const Favorites = lazy(() => import("./pages/Favorite/Favorites"));
 
+const routes = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "psychologists", element: <Psychologists /> },
+      {
+        path: "favorites",
+        element: <PrivateRoute redirectTo="/" component={Favorites} />,
+      },
+      { path: "*", element: <Navigate to="/" /> },
+    ],
+  },
+];
+
+const routerOptions = {
+  basename: "/psychologists-services/",
+};
+
 function App() {
   const { isRefreshing, getCurrent } = useAuth();
 
   useEffect(() => {
     getCurrent();
   }, [getCurrent]);
-
-  const routes = [
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { index: true, element: <Home /> },
-        { path: "psychologists", element: <Psychologists /> },
-        {
-          path: "favorites",
-          element: <PrivateRoute redirectTo="/" component={Favorites} />,
-        },
-        { path: "*", element: <Navigate to="/" /> },
-      ],
-    },
-  ];
-
-  const routerOptions = {
-    basename: "/psychologists-services/",
-  };
 
   const router = createBrowserRouter(routes, routerOptions);
 
