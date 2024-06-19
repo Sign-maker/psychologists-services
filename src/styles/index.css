@@ -48,14 +48,21 @@
 
 :root {
   /* colors */
-  --main-101828: #101828;
-  --text-475467: #475467;
-  --button-E44848: #e34747;
-  --button-accent-D84343: #d84343;
-  --rating-FFC531: #ffc531;
-  --block-features-F2F4F7: #f2f4f7;
-  --input-F7F7F7: #f7f7f7;
-  --white: #ffffff;
+  --dark: #191a15;
+  --dark-transparent-5: rgba(25, 26, 21, 0.05);
+  --dark-transparent-10: rgba(25, 26, 21, 0.1);
+  --dark-transparent-20: rgba(25, 26, 21, 0.2);
+  --dark-transparent-30: rgba(25, 26, 21, 0.3);
+  --dark-transparent-50: rgba(25, 26, 21, 0.5);
+  --dark-transparent-60: rgba(25, 26, 21, 0.5);
+  --medium: #54be96;
+  --medium-transparent-20: rgba(84, 190, 150, 0.2);
+  --meduim-accent: #36a379;
+  --medium-additional-1: #4535af;
+  --medium-additional-2: #fbc75e;
+  --light-additional-1: #fbfbfb;
+  --light-additional-2: #f3f3f3;
+  --light-additional-1-transparent-50: rgba(251, 251, 251, 0.5);
 
   /* fonts */
   --font-family: "Inter", sans-serif;
@@ -78,9 +85,10 @@ html ::-webkit-scrollbar-thumb {
 }
 
 body {
+  background-color: var(--light-additional-1);
   margin: 0;
   font-family: var(--font-family);
-  color: var(--text-475467);
+  color: var(--dark);
 }
 
 .visually-hidden {
@@ -103,13 +111,13 @@ body {
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  padding-left: 64px;
-  padding-right: 64px;
+  padding-left: 128px;
+  padding-right: 128px;
 }
 
-nav a.active {
-  color: var(--button-accent-D84343);
-}
+/* nav a.active {
+  color: var(--meduim-accent);
+} */
 
 /* nav a.active::after {
   content: "";
