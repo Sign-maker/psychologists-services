@@ -1,29 +1,28 @@
 import { useState } from "react";
-import { authNavOptions } from "../../constants/actionOptionsConstants";
+import { ACTION_OPTIONS } from "../../constants/actionOptionsConstants";
 import { UniversalBtn } from "../UniversalBtn/UniversalBtn";
 import css from "./AuthNav.module.css";
 import Modal from "../Modal/Modal";
 import { AuthForm } from "../AuthForm/AuthForm";
 import { UNIVESAL_BUTTON_CLASSES } from "../../constants/universalButtonConstants";
+import { ModalContentWrapper } from "../ModalContentWrapper/ModalContentWrapper";
 
 export const AuthNav = () => {
-  const [showSignInModal, setShowSignInModal] = useState(false);
-  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [actionOption, setActionOption] = useState({});
 
   const handleSignInClick = () => {
-    setShowSignInModal(true);
+    setActionOption(ACTION_OPTIONS.signIn);
+    setShowModal(true);
   };
 
   const handleSignUpClick = () => {
-    setShowSignUpModal(true);
+    setActionOption(ACTION_OPTIONS.signUp);
+    setShowModal(true);
   };
 
-  const handleSignInClose = () => {
-    setShowSignInModal(false);
-  };
-
-  const handleSignUpClose = () => {
-    setShowSignUpModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -33,25 +32,19 @@ export const AuthNav = () => {
         width={124}
         btnClass={UNIVESAL_BUTTON_CLASSES.btnTransparent}
       >
-        {authNavOptions.signIn.title}
+        {ACTION_OPTIONS.signIn.title}
       </UniversalBtn>
       <UniversalBtn onClick={handleSignUpClick} width={172}>
-        {authNavOptions.signUp.title}
+        {ACTION_OPTIONS.signUp.title}
       </UniversalBtn>
-      {showSignInModal && (
-        <Modal onClose={handleSignInClose}>
-          <AuthForm
-            actionOption={authNavOptions.signIn}
-            onClose={handleSignInClose}
-          />
-        </Modal>
-      )}
-      {showSignUpModal && (
-        <Modal onClose={handleSignUpClose}>
-          <AuthForm
-            actionOption={authNavOptions.signUp}
-            onClose={handleSignUpClose}
-          />
+      {showModal && (
+        <Modal onClose={handleCloseModal}>
+          <ModalContentWrapper
+            actionOption={actionOption}
+            onClose={handleCloseModal}
+          >
+            <AuthForm actionOption={actionOption} />
+          </ModalContentWrapper>
         </Modal>
       )}
     </div>

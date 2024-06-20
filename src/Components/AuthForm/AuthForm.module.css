@@ -1,21 +1,52 @@
 .wrapper {
-  width: 100%;
-  max-width: 566px;
-  background-color: var(--light-additional-1);
-  border-radius: 30px;
-  padding: 64px 64px;
-  position: relative;
-  overflow-y: auto;
+  margin-bottom: 40px;
 }
 
-.closeBtn {
+.fieldWrapper {
+  position: relative;
+}
+
+.fieldWrapper:not(:last-child) {
+  margin-bottom: 18px;
+}
+
+.inputWrapper {
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--dark-transparent-10);
+}
+
+.inputWrapperError {
+  border-color: var(--medium);
+}
+
+.input {
+  width: 100%;
+  padding: 16px 18px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+
+  font-family: inherit;
+  line-height: 125%;
+}
+
+.input::placeholder {
+  color: inherit;
+}
+
+.inputError {
+  position: absolute;
+  font-size: 12px;
+  color: var(--medium);
+  left: 18px;
+}
+.inputIcon {
+  background-color: transparent;
   width: 40px;
   height: 40px;
-  background-color: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
-  right: 16px;
-  top: 16px;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
 }

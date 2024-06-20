@@ -7,16 +7,18 @@ export const UniversalBtn = ({
   width = "100%",
   height = 48,
   isLoading = false,
+  disabled,
+  type = "button",
   btnClass = UNIVESAL_BUTTON_CLASSES.btnFilled,
   children,
 }) => {
   return (
     <button
       onClick={onClick}
-      type="button"
+      type={type}
       className={`${css.btn} ${css[btnClass]}`}
       style={{ width, height }}
-      disabled={isLoading}
+      disabled={isLoading || disabled}
     >
       {isLoading && (
         <span>

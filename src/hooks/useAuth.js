@@ -19,17 +19,17 @@ export const useAuth = () => {
   const userError = useSelector(selectUserError);
 
   const signUp = useCallback(
-    (credential) => dispath(authOperations.signUp(credential)),
+    (credential) => dispath(authOperations.signUp(credential)).unwrap(),
     [dispath]
   );
 
   const signIn = useCallback(
-    (credential) => dispath(authOperations.signIn(credential)),
+    (credential) => dispath(authOperations.signIn(credential)).unwrap(),
     [dispath]
   );
 
   const signOutUser = useCallback(
-    () => dispath(authOperations.signOutUser()),
+    () => dispath(authOperations.signOutUser()).unwrap(),
     [dispath]
   );
 

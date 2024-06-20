@@ -12,6 +12,7 @@ export const ACTION_OPTIONS = {
   signOut: {
     type: "signOut",
     title: "Log out",
+    text: "Are you sure you want to logout?",
   },
   makeAppointment: {
     type: "makeAppointment",

@@ -1,5 +1,6 @@
 /* @import-normalize; */
 @import url(./reset.css);
+@import url(../../node_modules/react-toastify/dist/ReactToastify.min.css);
 
 @font-face {
   font-family: "Inter";
@@ -68,7 +69,7 @@
   --font-family: "Inter", sans-serif;
 
   /* transition params */
-  --my-transition-duration: 250ms;
+  --my-transition-duration: 300ms;
   --my-transition-timing-function: ease-in-out;
   --my-transition-delay: 250ms;
   --my-cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);

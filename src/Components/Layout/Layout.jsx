@@ -10,7 +10,7 @@ import { UserMenu } from "../UserMenu/UserMenu";
 import { AuthNav } from "../AuthNav/AuthNav";
 
 export const Layout = () => {
-  const { isUserLoading, isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <header className={css.header}>
@@ -23,7 +23,6 @@ export const Layout = () => {
         </div>
       </header>
       <main>
-        {isUserLoading && <Loader />}
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
