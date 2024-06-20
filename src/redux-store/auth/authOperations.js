@@ -29,7 +29,7 @@ export const signUp = createAsyncThunk(
       });
       return user.toJSON();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue({ message: error.code });
     }
   }
 );
@@ -42,7 +42,7 @@ export const signIn = createAsyncThunk(
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       return user.toJSON();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue({ message: error.code });
     }
   }
 );
@@ -54,7 +54,7 @@ export const signOutUser = createAsyncThunk(
       await signOut(auth);
       return;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue({ message: error.message });
     }
   }
 );
@@ -76,7 +76,7 @@ export const getCurrent = createAsyncThunk(
       const user = await getCurrentUser();
       return user.toJSON();
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue({ message: error });
     }
   }
 );
