@@ -7,6 +7,6 @@ export const store = configureStore({
   reducer: {
     [psychologistsSlice.name]: psychologistsSlice.reducer,
     [authSlice.name]: authSlice.reducer,
-    // [filterSlice.name]: filterSlice.reducer,
+    [filterSlice.name]: filterSlice.reducer,
   },
 });

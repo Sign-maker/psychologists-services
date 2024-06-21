@@ -11,6 +11,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <App />
     </Provider>
-    <ToastContainer autoClose={5000} />
+    <ToastContainer autoClose={4000} position="bottom-right" />
   </React.StrictMode>
 );

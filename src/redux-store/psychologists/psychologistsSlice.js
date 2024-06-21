@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   psychologists: [],
-  isPsychologistsLoadind: false,
+  isPsychologistsLoading: false,
   error: null,
 };
 

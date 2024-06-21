@@ -8,6 +8,7 @@ import css from "./Layout.module.css";
 import { Navigation } from "../Navigation/Navigation";
 import { UserMenu } from "../UserMenu/UserMenu";
 import { AuthNav } from "../AuthNav/AuthNav";
+import { Filter } from "../Filter/Filter";
 
 export const Layout = () => {
   const { isLoggedIn } = useAuth();
@@ -23,6 +24,7 @@ export const Layout = () => {
         </div>
       </header>
       <main>
+        <Filter />
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>

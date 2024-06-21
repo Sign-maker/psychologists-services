@@ -9,8 +9,6 @@ import { useState } from "react";
 import { Icon } from "../Icon/Icon";
 import { toast } from "react-toastify";
 
-//   .required();
-
 export const AuthForm = ({ actionOption }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { signIn, signUp, isUserLoading } = useAuth();
