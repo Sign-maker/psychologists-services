@@ -12,3 +12,5 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+
+export const DB_PSYCHOLOGISTS_PATH = "psychologists";

@@ -1,14 +1,12 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import { Test } from "../Test";
 import { Loader } from "../Loader/Loader";
 import { useAuth } from "../../hooks/useAuth";
 import { Logo } from "../Logo/Logo";
-import css from "./Layout.module.css";
 import { Navigation } from "../Navigation/Navigation";
 import { UserMenu } from "../UserMenu/UserMenu";
 import { AuthNav } from "../AuthNav/AuthNav";
-import { Filter } from "../Filter/Filter";
+import css from "./Layout.module.css";
 
 export const Layout = () => {
   const { isLoggedIn } = useAuth();
@@ -24,11 +22,9 @@ export const Layout = () => {
         </div>
       </header>
       <main>
-        <Filter />
         <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
-        <Test />
       </main>
       <footer></footer>
     </>

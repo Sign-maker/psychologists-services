@@ -4,6 +4,7 @@ import {
   limitToLast,
   startAt,
   endBefore,
+  orderByKey,
 } from "firebase/database";
 
 export const SORT_ORDER = {
@@ -63,5 +64,10 @@ export const FILTER_OPTIONS = {
     value: "Popular",
     sortOrder: SORT_ORDER.desc,
   },
-  showAll: { value: "Show all" },
+  showAll: {
+    id: "showAll",
+    queryConstraint: [orderByKey(), limitToFirst(LIMIT + 1)],
+    value: "Show all",
+    sortOrder: SORT_ORDER.asc,
+  },
 };

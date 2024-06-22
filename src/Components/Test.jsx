@@ -5,7 +5,7 @@ import {
   get,
   getDatabase,
   ref,
-  enableLogging,
+  // enableLogging,
   orderByChild,
   query,
   limitToLast,
@@ -13,6 +13,7 @@ import {
   startAt,
   endAt,
   endBefore,
+  orderByKey,
 } from "firebase/database";
 
 import { useEffect, useState } from "react";
@@ -71,10 +72,15 @@ const FILTER_OPTIONS = {
     value: "Popular",
     sortOrder: SORT_ORDER.desc,
   },
-  showAll: { value: "Show all" },
+  showAll: {
+    key: "showAll",
+    queryConstraint: [orderByKey(), limitToFirst(LIMIT + 1)],
+    value: "Show all",
+    sortOrder: SORT_ORDER.asc,
+  },
 };
 
-enableLogging(true);
+// enableLogging(true);
 // const auth = getAuth(app);
 const db = getDatabase(app);
 
@@ -125,11 +131,11 @@ export const Test = () => {
       const tempItems = [];
 
       try {
-        const topUserPostsRef = query(
+        const currentRef = query(
           ref(db, DB_PSYCHOLOGISTS_PATH),
           ...queryConstraint
         );
-        const snapShot = await get(topUserPostsRef);
+        const snapShot = await get(currentRef);
 
         snapShot.forEach((item) => {
           tempItems.push({ key: item.key, ...item.val() });

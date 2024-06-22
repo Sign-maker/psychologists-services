@@ -18,10 +18,7 @@ export const Filter = () => {
     if (selectedOption.value === selectedFilter) {
       return;
     }
-    //reset psychologists,
-    //   setItems([]);
-    // setNextKey(null);
-    // setNextValue(null);
+
     setFilter(selectedOption.value);
   };
 
