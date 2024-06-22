@@ -7,3 +7,7 @@
 .icon-accent {
   fill: var(--medium);
 }
+
+.icon-star {
+  fill: var(--medium-additional-2);
+}
