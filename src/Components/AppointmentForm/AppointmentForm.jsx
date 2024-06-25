@@ -1,15 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useAuth } from "../../hooks/useAuth";
 
 import { UniversalBtn } from "../UniversalBtn/UniversalBtn";
-import { Icon } from "../Icon/Icon";
+// import { Icon } from "../Icon/Icon";
 import css from "./AppointmentForm.module.css";
 
 export const AppointmentForm = ({ psychologist }) => {
-  const { user } = useAuth();
-
   const { avatar_url, name } = psychologist;
 
   const getYupValidationObj = () => {
@@ -32,7 +29,7 @@ export const AppointmentForm = ({ psychologist }) => {
           /^(?=.*\+[0-9]{3}\s?[0-9]{2}\s?[0-9]{3}\s?[0-9]{4,5}$)/,
           "Phone must match +380507778899"
         ),
-      time: yup.date().required("Time is required"),
+      time: yup.string().required("Time is required"),
       comment: yup
         .string()
         .required("Comment is required")
@@ -87,27 +84,51 @@ export const AppointmentForm = ({ psychologist }) => {
               <p className={css.inputError}>{errors.name?.message}</p>
             )}
           </div>
-          <div className={css.fieldWrapper}>
-            <label htmlFor="phone"></label>
-            <div
-              className={
-                errors.name
-                  ? `${css.inputWrapper} ${css.inputWrapperError}`
-                  : css.inputWrapper
-              }
-            >
-              <input
-                defaultValue="+380"
-                {...register("phone")}
-                placeholder="+380"
-                id="phone"
-                type="tel"
-                className={css.input}
-              />
+          <div className={css.phoneAndTimeWrapper}>
+            <div className={css.fieldWrapper}>
+              <label htmlFor="phone"></label>
+              <div
+                className={
+                  errors.name
+                    ? `${css.inputWrapper} ${css.inputWrapperError}`
+                    : css.inputWrapper
+                }
+              >
+                <input
+                  defaultValue="+380"
+                  {...register("phone")}
+                  placeholder="+380"
+                  id="phone"
+                  type="tel"
+                  className={css.input}
+                />
+              </div>
+              {errors.phone?.message && (
+                <p className={css.inputError}>{errors.phone?.message}</p>
+              )}
             </div>
-            {errors.phone?.message && (
-              <p className={css.inputError}>{errors.phone?.message}</p>
-            )}
+            <div className={css.fieldWrapper}>
+              <label htmlFor="time"></label>
+              <div
+                className={
+                  errors.name
+                    ? `${css.inputWrapper} ${css.inputWrapperError}`
+                    : css.inputWrapper
+                }
+              >
+                <input
+                  // defaultValue="+380"
+                  {...register("time")}
+                  defaultValue={"00:00"}
+                  id="time"
+                  type="time"
+                  className={css.input}
+                />
+              </div>
+              {errors.time?.message && (
+                <p className={css.inputError}>{errors.time?.message}</p>
+              )}
+            </div>
           </div>
 
           <div className={css.fieldWrapper}>
@@ -140,12 +161,12 @@ export const AppointmentForm = ({ psychologist }) => {
                   : css.inputWrapper
               }
             >
-              <input
+              <textarea
                 {...register("comment")}
                 placeholder="Comment"
                 id="comment"
                 type="text"
-                className={css.input}
+                className={`${css.input} ${css.textarea}`}
               />
             </div>
             {errors.comment?.message && (

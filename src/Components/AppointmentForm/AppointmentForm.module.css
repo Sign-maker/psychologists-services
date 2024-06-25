@@ -51,6 +51,20 @@
   transform: translateY(-50%);
 }
 
+.textarea {
+  resize: none;
+  min-height: 116px;
+}
+
+.phoneAndTimeWrapper {
+  display: flex;
+  column-gap: 8px;
+}
+
+.phoneAndTimeWrapper .fieldWrapper {
+  flex-basis: 296px;
+}
+
 .psychologistWrapper {
   display: flex;
   align-items: center;
