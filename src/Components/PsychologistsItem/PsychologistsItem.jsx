@@ -200,7 +200,7 @@ export const PsychologistsItem = ({ item }) => {
               actionOption={actionOption}
               onClose={handleCloseModal}
             >
-              <AppointmentForm actionOption={actionOption} />
+              <AppointmentForm psychologist={item} />
             </ModalContentWrapper>
           </Modal>
         )}

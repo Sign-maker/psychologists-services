@@ -1,11 +1,18 @@
+import { ACTION_OPTIONS } from "../../constants/actionOptionsConstants";
 import { ICON_CLASSES } from "../../constants/iconConstants";
 import { Icon } from "../Icon/Icon";
 import css from "./ModalContentWrapper.module.css";
 
 export const ModalContentWrapper = ({ actionOption, onClose, children }) => {
-  const { title, text } = actionOption;
+  const { title, text, type } = actionOption;
   return (
-    <div className={css.wrapper}>
+    <div
+      className={
+        type === ACTION_OPTIONS.makeAppointment.type
+          ? `${css.wrapper} ${css.wrapperMakeAppoinment}`
+          : css.wrapper
+      }
+    >
       <div className={css.titleAndTextWrapper}>
         {title && <h2 className={css.title}>{title}</h2>}
         {text && <p className={css.text}>{text}</p>}
