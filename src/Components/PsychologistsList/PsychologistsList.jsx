@@ -1,13 +1,9 @@
-import { usePsychologists } from "../../hooks/usePsychologists";
 import { PsychologistsItem } from "../PsychologistsItem/PsychologistsItem";
-// import css from "./PsychologistsList.module.css";
 
-export const PsychologistsList = () => {
-  const { psychologistsItems } = usePsychologists();
-
+export const PsychologistsList = ({ items }) => {
   return (
     <ul>
-      {psychologistsItems.map((item) => (
+      {items.map((item) => (
         <PsychologistsItem key={item.key} item={item} />
       ))}
     </ul>

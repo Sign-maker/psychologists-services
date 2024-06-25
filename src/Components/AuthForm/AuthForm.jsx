@@ -1,13 +1,14 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import css from "./AuthForm.module.css";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../../hooks/useAuth";
+
+import { toast } from "react-toastify";
 import { UniversalBtn } from "../UniversalBtn/UniversalBtn";
 import { ACTION_OPTIONS } from "../../constants/actionOptionsConstants";
-import { useAuth } from "../../hooks/useAuth";
-import { useState } from "react";
 import { Icon } from "../Icon/Icon";
-import { toast } from "react-toastify";
+import css from "./AuthForm.module.css";
 
 export const AuthForm = ({ actionOption }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);

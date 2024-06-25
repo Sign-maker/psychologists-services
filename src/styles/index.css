@@ -114,8 +114,18 @@ body {
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  padding-left: 128px;
-  padding-right: 128px;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  @media screen and (min-width: 768px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    padding-left: 128px;
+    padding-right: 128px;
+  }
 }
 
 /* nav a.active {

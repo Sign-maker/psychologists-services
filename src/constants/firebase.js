@@ -14,3 +14,6 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 
 export const DB_PSYCHOLOGISTS_PATH = "psychologists";
+export const DB_FAVORITES_PATH = "favorites";
+
+export const FAVORITE_FOR_USERS_KEY = "favoriteForUsers";

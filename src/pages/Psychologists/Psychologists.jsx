@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { usePsychologists } from "../../hooks/usePsychologists";
 import { useFilter } from "../../hooks/useFilter";
 
+import { toast } from "react-toastify";
 import { Filter } from "../../Components/Filter/Filter";
 import { PsychologistsList } from "../../Components/PsychologistsList/PsychologistsList";
-import { toast } from "react-toastify";
 import { endAt, startAt } from "firebase/database";
 import { FILTER_OPTIONS, SORT_ORDER } from "../../constants/filterConstants";
 import { UniversalBtn } from "../../Components/UniversalBtn/UniversalBtn";
 import { Loader } from "../../Components/Loader/Loader";
+import { Empty } from "../../Components/Empty/Empty";
 import css from "./Psychologists.module.css";
 
 const Psychologists = () => {
@@ -77,13 +78,16 @@ const Psychologists = () => {
     setShouldGetItems(true);
   };
 
+  const items = psychologistsItems;
+
   return (
     <section className={css.section}>
       <div className="container">
         <h2 className="visually-hidden">Psychologists</h2>
         <Filter />
-        {psychologistsItems.length > 0 && <PsychologistsList />}
-        {isPsychologistsLoading && !psychologistsItems.length && <Loader />}
+        {items.length > 0 && <PsychologistsList items={items} />}
+        {!isPsychologistsLoading && !items.length && <Empty />}
+        {isPsychologistsLoading && !items.length && <Loader />}
         {nextKey && (
           <div className={css.btnWrapper}>
             <UniversalBtn

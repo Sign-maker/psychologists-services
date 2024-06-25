@@ -34,9 +34,11 @@ export const AuthNav = () => {
       >
         {ACTION_OPTIONS.signIn.title}
       </UniversalBtn>
+
       <UniversalBtn onClick={handleSignUpClick} width={172}>
         {ACTION_OPTIONS.signUp.title}
       </UniversalBtn>
+
       {showModal && (
         <Modal onClose={handleCloseModal}>
           <ModalContentWrapper

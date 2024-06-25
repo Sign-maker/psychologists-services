@@ -9,3 +9,5 @@ export const selectNextKey = (state) =>
 
 export const selectNextValue = (state) =>
   state.psychologists.paginationParams.nextValue;
+
+export const selectFavorites = (state) => state.psychologists.favoritesItems;

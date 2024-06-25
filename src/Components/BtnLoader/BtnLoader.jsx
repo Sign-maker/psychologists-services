@@ -4,8 +4,8 @@ export const BtnLoader = ({ color = "#191a15" }) => {
   return (
     <RotatingLines
       visible={true}
-      height="30"
-      width="30"
+      height="26"
+      width="26"
       color="grey"
       strokeColor={color}
       strokeWidth="3"

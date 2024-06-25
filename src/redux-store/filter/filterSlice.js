@@ -12,5 +12,8 @@ export const filterSlice = createSlice({
     setFilter: (state, { payload }) => {
       state.selectedFilter = payload;
     },
+    resetFilter: (state) => {
+      state.selectedFilter = initialState.selectedFilter;
+    },
   },
 });
