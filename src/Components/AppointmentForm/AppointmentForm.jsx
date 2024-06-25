@@ -49,8 +49,8 @@ export const AppointmentForm = ({ psychologist }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (appointmentDetails) => {
-    console.log(appointmentDetails);
+  const onSubmit = () => {
+    window.location.reload();
   };
   return (
     <div>
