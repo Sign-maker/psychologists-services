@@ -12,36 +12,19 @@ const options = Object.entries(FILTER_OPTIONS).map(([id, data]) => ({
 const customStyles = {
   control: (provided) => ({
     ...provided,
-    backgroundColor: "#e8f5e9", // Светло-зеленый цвет фона для контрола
-    border: "1px solid #81c784", // Зеленая рамка
-    borderRadius: "4px",
     boxShadow: "none",
-    "&:hover": {
-      borderColor: "#66bb6a", // Цвет рамки при наведении
-    },
   }),
   menu: (provided) => ({
     ...provided,
-    borderRadius: "4px",
-    marginTop: 0,
-    backgroundColor: "#ffffff", // Белый цвет фона для меню
-    boxShadow: "0 4px 11px rgba(0, 0, 0, 0.1)",
+    borderRadius: "14px",
+    marginTop: "8px",
+    boxShadow: " 0 20px 69px 0 rgba(0, 0, 0, 0.07)",
+    background: "#fff",
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isSelected
-      ? "#a5d6a7"
-      : state.isFocused
-      ? "#c8e6c9"
-      : "#ffffff",
-    color: state.isSelected ? "#2e7d32" : "#000000",
-    "&:active": {
-      backgroundColor: "#81c784", // Цвет фона при активации
-    },
-  }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: "#2e7d32", // Зеленый цвет текста для выбранного значения
+    backgroundColor: state.isFocused ? "#f3f3f3" : "transparent",
+    color: state.isSelected ? "#191a15" : " rgba(25, 26, 21, 0.3)",
   }),
 };
 
@@ -67,6 +50,7 @@ export const Filter = () => {
     <div className={css.wrapper}>
       <h3 className={css.title}>Filters</h3>
       <Select
+        isSearchable={false}
         styles={customStyles}
         onChange={handleSelect}
         options={options}
